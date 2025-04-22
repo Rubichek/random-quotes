@@ -1,29 +1,8 @@
-import quotes from "./src/quotes.js";
-import { generateRandomInt } from "./src/utils.js";
-import {
-  hideFavoriteCard,
-  showFavoriteCard,
-  toggleFavoriteIcon,
-} from "./src/favoritesHandler.js";
+import { handleQuote } from "./src/handlers/quote.js";
 
-const quoteElement = document.getElementById("quote");
-const quoteAuthorElement = document.getElementById("quote-author");
 const generateBtn = document.getElementById("generate-btn");
-const toggleFavoriteBtn = document.getElementById("toggle-favorite-btn");
-const favoritesContainer = document.getElementById("favorites-container");
+generateBtn.addEventListener("click", handleQuote);
 
-let currentQuoteIndex;
-
-function generateRandomQuote() {
-  const randomIndex = generateRandomInt(quotes.length);
-  const { quote, author } = quotes[randomIndex];
-  currentQuoteIndex = randomIndex;
-  // const { quote, author: quoteAuthor } = randomQuote; // Дистуктуризация
-  quoteElement.textContent = quote;
-  quoteAuthorElement.textContent = author;
-  toggleFavoriteIcon(randomQuote.isFavorite, toggleFavoriteBtn);
-  toggleFavoriteBtn.style.display = "inline-block";
-}
 // console.log(currentQuoteIndex);
 
 // const quote = randomQuote.quote
@@ -56,26 +35,7 @@ function generateRandomQuote() {
 
  */
 
-function toggleFavorite() {
-  const currentQuote = quotes[currentQuoteIndex]; // нашли один обьект в массиве обьектов
-  currentQuote.isFavorite = !currentQuote.isFavorite; // для найденого обьекта мы поменяли значение на другое
-  toggleFavoriteIcon(currentQuote.isFavorite, toggleFavoriteBtn);
-
-  if (currentQuote.isFavorite) {
-    showFavoriteCard(
-      currentQuote.quote,
-      currentQuote.author,
-      favoritesContainer
-    );
-  } else {
-    hideFavoriteCard(currentQuote.quote);
-  }
-}
-
-generateBtn.addEventListener("click", generateRandomQuote);
-toggleFavoriteBtn.addEventListener("click", toggleFavorite);
-
-generateRandomQuote();
+// choseRandomQuote();
 
 // !quotes - используем оператор НЕ для того что конвертировать true в false или false в true
 
